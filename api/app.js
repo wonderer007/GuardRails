@@ -6,7 +6,7 @@ import routes from './server/routes'
 import cors from 'cors'
 
 const hostname = '127.0.0.1'
-const port = 3000
+const port = 5000
 const app = express()
 const server = http.createServer(app)
 

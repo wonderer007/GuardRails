@@ -13,7 +13,7 @@ const Header = () => {
         </Col>
         <Col md={4}>
           <Link to="/"> Home </Link> |
-          <Link to="/newSecurityScanResults"> About </Link>
+          <Link to="/newSecurityScanResults"> New Scan </Link>
         </Col>
       </Row>
     </div>

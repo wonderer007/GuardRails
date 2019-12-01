@@ -19,3 +19,20 @@ export const loadResults = () => {
     });
   }
 }
+
+export const submitSecurityScanReport = (params) => {
+  return (dispatch) => {
+    const url = 'http://localhost:5000/api/results';
+
+    axios
+    .post(url, params)
+    .then(response => {
+      alert('report added successfully')
+      console.log(response)
+    })
+    .catch(error => {
+      alert('something went wrong, please try again')
+      console.log(error)
+    });
+  }
+}

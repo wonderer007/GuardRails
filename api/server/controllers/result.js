@@ -20,9 +20,10 @@ class Results {
         message: 'Result successfully created',
         resultData
       }))
-      .catch(error => res.status(401).send({
+      .catch(error => res.status(422).send({
         success: false,
-        message: 'something went wrong, please make sure parameters are correct'
+        message: 'something went wrong, please make sure parameters are correct',
+        error
       }))
   }
 
@@ -31,6 +32,7 @@ class Results {
 
     return Result
       .findAll({
+        order: [['id', 'DESC']],
         offset: page*20,
         limit: 20
       })

@@ -1,11 +1,21 @@
 import React, { useEffect } from 'react'
 import { connect } from 'react-redux'
-import { loadResults } from '../actions/index'
 import Container from 'react-bootstrap/Container'
 import Table from 'react-bootstrap/Table'
 import Badge from 'react-bootstrap/Badge'
+import { Link } from 'react-router-dom'
 
 const SecurityScanResults = (listing=[]) => {
+
+  const formatDate = (date) => {
+    return date ? new Date(date).toDateString() : ""
+  }
+
+  const findingCount = (data) => {
+    const findings = JSON.parse(data)
+
+    return findings && findings.findings ? findings.findings.length : 0
+  }
 
   return (
     <Table striped bordered hover>
@@ -13,9 +23,9 @@ const SecurityScanResults = (listing=[]) => {
         <tr>
           <th>Repository</th>
           <th>Status</th>
-          <th>Queued Time</th>
-          <th>Scanning Time</th>
-          <th>Finished Time</th>
+          <th>Queued At</th>
+          <th>Scanning At</th>
+          <th>Finished At</th>
           <th>Findings</th>
           <th>Actions</th>
         </tr>
@@ -23,20 +33,18 @@ const SecurityScanResults = (listing=[]) => {
       <tbody>
         {
           listing.listing.map(result => (
-            <tr>
+            <tr key={result.id}>
               <td>{ result.repositoryName }</td>
               <td>{ result.status }</td>
-              <td>{ result.queuedAt }</td>
-              <td>{ result.scanningAt }</td>
-              <td>{ result.finishedAt }</td>
+              <td>{ formatDate(result.queuedAt) }</td>
+              <td>{ formatDate(result.scanningAt) }</td>
+              <td>{ formatDate(result.finishedAt) }</td>
               <td>
-                <Badge pill variant="primary">Primary</Badge>
-                <Badge pill variant="success">Success</Badge>
-                <Badge pill variant="danger">Danger</Badge>
-                <Badge pill variant="warning">Warning</Badge>
-                <Badge pill variant="info">Info</Badge>
+                <Badge pill variant="primary">{ findingCount(result.findings) }</Badge>
               </td>
-              <td><a href='#'>Detail</a></td>
+              <td>
+                <Link to={{ pathname: `/finding/${result.id}`, state: result }} > Detail </Link>
+              </td>
             </tr>
           ))
         }

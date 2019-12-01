@@ -14,10 +14,21 @@ const NewScan = ({submitSecurityScanReport}) => {
 
   const [validated, setValidated] = useState(false)
 
+  const validateFindingJSON = (finding) => {
+    try {
+        JSON.parse(finding);
+    } catch (e) {
+        return false;
+    }
+    return true;
+  }
+
   const submitForm = (event, params) => {
     const form = event.currentTarget
     if (form.checkValidity() === false)
       event.stopPropagation()
+    else if(!validateFindingJSON(params.findings))
+      alert('finding json is not validate')
     else
       submitSecurityScanReport(params)
 

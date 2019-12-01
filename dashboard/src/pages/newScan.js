@@ -45,7 +45,7 @@ const NewScan = ({submitSecurityScanReport}) => {
 
   return (
     <Container>
-      <Header />
+      <Header title='New Security Scan Result' />
       <Form noValidate validated={validated} onSubmit={
         (event) => {
           submitForm(event,{

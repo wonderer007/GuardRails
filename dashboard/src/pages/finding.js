@@ -1,17 +1,14 @@
 import React, { useState } from 'react'
-import Button from 'react-bootstrap/Button'
-import Row from 'react-bootstrap/Row'
-import Col from 'react-bootstrap/Col'
-import { Link } from 'react-router-dom'
 import Container from 'react-bootstrap/Container'
 import Table from 'react-bootstrap/Table'
-import Badge from 'react-bootstrap/Badge'
 import ListGroup from 'react-bootstrap/ListGroup'
 import Header from '../components/header'
 
 const Finding = ({location}) => {
 
-  const [result, setResult] = useState(location.state)
+  const [result] = useState(location.state)
+  if(!result)
+    window.location = window.location.origin
   const findings = JSON.parse(result.findings)
 
   const formatDate = (date) => {
@@ -20,49 +17,49 @@ const Finding = ({location}) => {
 
   return (
     <Container>
-      <Header />
+      <Header title='Security Scan Result Findings'/>
       <Table striped bordered hover>
         <tbody>
-          <tr>
+          <tr key="repositoryName">
             <th>Repository</th>
             <td>{result.repositoryName}</td>
           </tr>
 
-          <tr>
+          <tr key="status">
             <th>Status</th>
             <td>{result.status}</td>
           </tr>
 
-          <tr>
+          <tr key="queuedAt">
             <th>Queued At</th>
             <td>{formatDate(result.queuedAt)}</td>
           </tr>
 
-          <tr>
+          <tr key="scanningAt">
             <th>Scanning At</th>
             <td>{formatDate(result.scanningAt)}</td>
           </tr>
 
-          <tr>
+          <tr key="finishedAt">
             <th>Finished At</th>
             <td>{formatDate(result.finishedAt)}</td>
           </tr>
 
-          <tr>
+          <tr key="findings">
             <th>Findings</th>
             <td>
               {
-                findings.findings.map(result => (
-                  <div>
+                findings.findings.map((result,index) => (
+                  <div key={index}>
                     <ListGroup>
-                      <ListGroup.Item action><b>Rule Id: </b>{result.ruleId}</ListGroup.Item>
-                      <ListGroup.Item action href="#link2" disabled>
+                      <ListGroup.Item action key="ruleId"><b>Rule Id: </b>{result.ruleId}</ListGroup.Item>
+                      <ListGroup.Item action key="description">
                         <b>Description: </b> {result.metadata.description}
                       </ListGroup.Item>
-                      <ListGroup.Item action>
+                      <ListGroup.Item action key="severity">
                         <b>Severity: </b> {result.metadata.severity}
                       </ListGroup.Item>
-                      <ListGroup.Item action>
+                      <ListGroup.Item action key="file">
                         <b>File: </b> {`${result.location.path}#${result.location.positions.begin.line}`}
                       </ListGroup.Item>
                     </ListGroup>

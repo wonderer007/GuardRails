@@ -1,6 +1,4 @@
-import React, { useEffect } from 'react'
-import { connect } from 'react-redux'
-import Container from 'react-bootstrap/Container'
+import React from 'react'
 import Table from 'react-bootstrap/Table'
 import Badge from 'react-bootstrap/Badge'
 import { Link } from 'react-router-dom'
@@ -40,7 +38,7 @@ const SecurityScanResults = (listing=[]) => {
               <td>{ formatDate(result.scanningAt) }</td>
               <td>{ formatDate(result.finishedAt) }</td>
               <td>
-                <Badge pill variant="primary">{ findingCount(result.findings) }</Badge>
+                <Badge pill variant="danger">{ findingCount(result.findings) }</Badge>
               </td>
               <td>
                 <Link to={{ pathname: `/finding/${result.id}`, state: result }} > Detail </Link>
@@ -49,6 +47,7 @@ const SecurityScanResults = (listing=[]) => {
           ))
         }
       </tbody>
+
     </Table>
   );
 }

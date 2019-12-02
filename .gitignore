@@ -2,3 +2,4 @@
 /api/.env
 
 /dashboard/node_modules
+/dashboard/build

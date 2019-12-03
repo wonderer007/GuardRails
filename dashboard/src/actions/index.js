@@ -28,6 +28,7 @@ export const submitSecurityScanReport = (params) => {
     .post(url, params)
     .then(response => {
       alert('report added successfully')
+      window.location = window.location.origin
       console.log(response)
     })
     .catch(error => {

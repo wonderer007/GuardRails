@@ -7,7 +7,7 @@ import dbConfig from '../config/config'
 const db = {};
 
 const sequelize = new Sequelize(dbConfig[env].database, dbConfig[env].username, dbConfig[env].password, dbConfig[env]);
-
+sequelize.sync()
 fs
   .readdirSync(__dirname)
   .filter(file => {

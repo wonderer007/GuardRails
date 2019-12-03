@@ -49,7 +49,7 @@ const Finding = ({location}) => {
             <th>Findings</th>
             <td>
               {
-                findings.findings.map((result,index) => (
+                (findings.findings || []).map((result,index) => (
                   <div key={index}>
                     <ListGroup>
                       <ListGroup.Item action key="ruleId"><b>Rule Id: </b>{result.ruleId}</ListGroup.Item>

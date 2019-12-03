@@ -9,8 +9,17 @@ const SecurityScanResults = (listing=[]) => {
     return date ? new Date(date).toDateString() : ""
   }
 
+  const JSONValidator = (data) => {
+    try {
+        JSON.parse(data);
+    } catch (e) {
+        return false;
+    }
+    return true;
+  }
+
   const findingCount = (data) => {
-    const findings = JSON.parse(data)
+    const findings = JSONValidator(data) ? JSON.parse(data) : null
 
     return findings && findings.findings ? findings.findings.length : 0
   }
@@ -19,7 +28,7 @@ const SecurityScanResults = (listing=[]) => {
     <Table striped bordered hover>
       <thead>
         <tr>
-          <th>Repository</th>
+          <th>Repository1</th>
           <th>Status</th>
           <th>Queued At</th>
           <th>Scanning At</th>
